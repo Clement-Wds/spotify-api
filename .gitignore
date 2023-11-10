@@ -57,7 +57,7 @@ jspm_packages/
 .env
 
 # VSCode folders
-.vscode/
+# .vscode/
 
 # JetBrains folders
 .idea/
@@ -104,7 +104,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 # VS Code directories
-.vscode/
+# .vscode/
 
 # Windows Installer files
 *.cab
@@ -138,7 +138,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 # VS Code directories
-.vscode/
+# .vscode/
 
 # Windows Installer files
 *.cab
@@ -172,7 +172,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 # VS Code directories
-.vscode/
+# .vscode/
 
 # Windows Installer files
 *.cab
@@ -206,7 +206,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 # VS Code directories
-.vscode/
+# .vscode/
 
 # Windows Installer files
 *.cab

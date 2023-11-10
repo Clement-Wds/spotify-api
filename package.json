@@ -7,7 +7,8 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "test": "exit 0",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build": "npx babel src -d dist"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +18,9 @@
     "mysql": "^2.18.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
+    "babel-cli": "^6.26.0",
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",

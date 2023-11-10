@@ -5,7 +5,7 @@
 - Clément DUFOUR-LAMARTINIE
 - Clément WALSH DE SERRANT
 
-## Installation
+## Installation and configuration
 
 Run `npm install`
 

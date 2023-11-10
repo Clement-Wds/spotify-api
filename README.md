@@ -13,18 +13,10 @@ Create `.env` file
 
 .env configuration :
 
-`DB_HOST=
-DB_USER=
-DB_PASSWORD=
-DB_DATABASE=
-PORT=3000`
-
  <pre>
- ```
 DB_HOST=
 DB_USER=
 DB_PASSWORD=
 DB_DATABASE=
 PORT=3000
- ```
  </pre>

@@ -1,15 +1,18 @@
 const express = require('express');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const dotenv = require('dotenv');
+const routes = require('./src/routes');
+const sequelize = require('./src/sequelize');
 
 dotenv.config(); // Chargement des variables d'environnement depuis le fichier .env
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 // Configuration de la base de données
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
@@ -30,9 +33,13 @@ db.connect(err => {
   //console.log('Connecté à la base de données MySQL');
 });
 
-app.get('/', (req, res) => {
-  // Envoie un message au client
-  res.send('Spotify is running');
+app.use('/api', routes); // Toutes les routes seront préfixées par /api
+
+// Synchronisez les modèles avec la base de données
+sequelize.sync().then(() => {
+  app.listen(port, () => {
+    console.log(`Serveur en cours d'exécution sur le port ${port}`);
+  });
 });
 
 app.listen(port, () => {

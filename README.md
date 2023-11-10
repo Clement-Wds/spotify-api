@@ -1,6 +1,6 @@
 # Spotify API (Ynov)
 
-## Membres du projet
+## Project members
 
 - Clément DUFOUR-LAMARTINIE
 - Clément WALSH DE SERRANT

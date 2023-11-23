@@ -3,11 +3,17 @@ const mysql = require('mysql2');
 const dotenv = require('dotenv');
 const routes = require('./src/routes');
 const sequelize = require('./src/sequelize');
+const cors = require('cors');
 
 dotenv.config(); // Chargement des variables d'environnement depuis le fichier .env
 
 const app = express();
 const port = process.env.PORT;
+
+app.use(cors());
+
+// Middleware Body Parser
+app.use(express.json());
 
 // Configuration de la base de données
 const db = mysql.createConnection({

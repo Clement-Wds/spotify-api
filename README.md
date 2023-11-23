@@ -24,3 +24,7 @@ DB_PORT=3306
 
 JWT_SECRET=
  </pre>
+
+## Run project
+
+Run `npm run dev`

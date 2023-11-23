@@ -8,9 +8,13 @@ const Music = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    artist: {
-      type: DataTypes.STRING,
+    artist_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'artists', // 'artists' refers to table name
+        key: 'id', // 'id' refers to column name in artists table
+      },
     },
     album: DataTypes.STRING,
     year: DataTypes.INTEGER,

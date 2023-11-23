@@ -1,6 +1,7 @@
 import {upload} from '../middleware/upload';
 import {convertAudio, convertImage} from '../middleware/convert';
 import Music from '../models/music';
+import Artist from '../models/artist';
 
 export const createMusic = [
   upload.single('file'),
@@ -8,6 +9,10 @@ export const createMusic = [
   convertImage,
   async (req, res) => {
     try {
+      const artist = await Artist.findByPk(req.body.artist_id);
+      if (!artist) {
+        return res.status(404).json({message: 'Artist not found'});
+      }
       const music = await Music.create({
         ...req.body,
         filePath: req.file.path,
@@ -21,7 +26,9 @@ export const createMusic = [
 
 exports.getMusic = async (req, res) => {
   try {
-    const music = await Music.findByPk(req.params.id);
+    const music = await Music.findByPk(req.params.id, {
+      include: Artist,
+    });
     if (music) {
       res.status(200).json(music);
     } else {
@@ -38,6 +45,10 @@ export const updateMusic = [
   convertImage,
   async (req, res) => {
     try {
+      const artist = await Artist.findByPk(req.body.artist_id);
+      if (!artist) {
+        return res.status(404).json({message: 'Artist not found'});
+      }
       const music = await Music.update(
         {
           ...req.body,

@@ -20,7 +20,7 @@ const register = async (req, res) => {
 
     res.status(201).json({message: 'Utilisateur enregistré avec succès'});
   } catch (error) {
-    console.error("Erreur lors de l'enregistrement de l'utilisateur :", error);
+    //console.error("Erreur lors de l'enregistrement de l'utilisateur :", error);
     res
       .status(500)
       .json({message: "Erreur lors de l'enregistrement de l'utilisateur"});
@@ -50,7 +50,7 @@ const login = async (req, res) => {
 
     res.json({token});
   } catch (error) {
-    //console.error("Erreur lors de la vérification de l'utilisateur :", error);
+    console.error("Erreur lors de la vérification de l'utilisateur :", error);
     res
       .status(500)
       .json({message: "Erreur lors de la vérification de l'utilisateur"});

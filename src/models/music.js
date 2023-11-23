@@ -16,7 +16,14 @@ const Music = sequelize.define(
         key: 'id', // 'id' refers to column name in artists table
       },
     },
-    album: DataTypes.STRING,
+    album_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'albums',
+        key: 'id',
+      },
+    },
     year: DataTypes.INTEGER,
     genre: DataTypes.STRING,
     trackNumber: DataTypes.INTEGER,

@@ -1,7 +1,8 @@
 import {upload} from '../middleware/upload';
 import {convertAudio, convertImage} from '../middleware/convert';
-import Music from '../models/music';
-import Artist from '../models/artist';
+const Music = require('../models/music');
+const Artist = require('../models/artist');
+const Album = require('../models/album');
 
 export const createMusic = [
   upload.single('file'),
@@ -12,6 +13,10 @@ export const createMusic = [
       const artist = await Artist.findByPk(req.body.artist_id);
       if (!artist) {
         return res.status(404).json({message: 'Artist not found'});
+      }
+      const album = await Album.findByPk(req.body.album_id);
+      if (!album) {
+        return res.status(404).json({message: 'Album not found'});
       }
       const music = await Music.create({
         ...req.body,
@@ -48,6 +53,10 @@ export const updateMusic = [
       const artist = await Artist.findByPk(req.body.artist_id);
       if (!artist) {
         return res.status(404).json({message: 'Artist not found'});
+      }
+      const album = await Album.findByPk(req.body.album_id);
+      if (!album) {
+        return res.status(404).json({message: 'Album not found'});
       }
       const music = await Music.update(
         {

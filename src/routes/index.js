@@ -2,6 +2,7 @@ const express = require('express');
 const authController = require('../controllers/authController');
 const musicController = require('../controllers/musicController');
 const artistController = require('../controllers/artistController');
+const albumController = require('../controllers/albumController');
 const {authenticateToken} = require('../middlewares/auth');
 
 const router = express.Router();
@@ -24,5 +25,11 @@ router.post('/artist', authenticateToken, artistController.createArtist);
 router.get('/artist/:id', authenticateToken, artistController.getArtist);
 router.put('/artist/:id', authenticateToken, artistController.updateArtist);
 router.delete('/artist/:id', authenticateToken, artistController.deleteArtist);
+
+// Routes for album
+router.post('/album', authenticateToken, albumController.createAlbum);
+router.get('/album/:id', authenticateToken, albumController.getAlbum);
+router.put('/album/:id', authenticateToken, albumController.updateAlbum);
+router.delete('/album/:id', authenticateToken, albumController.deleteAlbum);
 
 module.exports = router;

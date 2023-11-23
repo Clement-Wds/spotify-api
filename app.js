@@ -43,6 +43,7 @@ app.use((err, req, res, next) => {
 db.connect(err => {
   if (err) {
     // Appel du middleware d'erreur global avec l'erreur
+    //TODO: PATCH next() is not defined
     return next(err);
   }
   // Si la connexion réussit, poursuivre le code

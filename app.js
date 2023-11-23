@@ -1,9 +1,10 @@
-const express = require('express');
+import express from 'express';
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
 const routes = require('./src/routes');
 const sequelize = require('./src/sequelize');
 const cors = require('cors');
+const redis = require('redis');
 
 dotenv.config(); // Chargement des variables d'environnement depuis le fichier .env
 
@@ -18,6 +19,8 @@ if (!jwtSecret) {
 }
 
 app.use(cors());
+
+const redisClient = redis.createClient();
 
 // Middleware Body Parser
 app.use(express.json());

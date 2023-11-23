@@ -4,6 +4,7 @@ const musicController = require('../controllers/musicController');
 const artistController = require('../controllers/artistController');
 const albumController = require('../controllers/albumController');
 const {authenticateToken} = require('../middlewares/auth');
+const cache = require('../middlewares/cache'); // Importez le middleware de cache
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.get('/protected', authenticateToken, (req, res) =>
 
 // Routes for music
 router.post('/music', authenticateToken, musicController.createMusic);
-router.get('/music/:id', authenticateToken, musicController.getMusic);
+router.get('/music/:id', authenticateToken, cache, musicController.getMusic); // Utilisez le middleware de cache ici
 router.put('/music/:id', authenticateToken, musicController.updateMusic);
 router.delete('/music/:id', authenticateToken, musicController.deleteMusic);
 

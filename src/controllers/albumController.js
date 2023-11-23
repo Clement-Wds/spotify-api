@@ -1,7 +1,7 @@
-const Album = require('../models/album');
-const Artist = require('../models/artist');
+import Album from '../models/album.js';
+import Artist from '../models/artist.js';
 
-exports.createAlbum = async (req, res) => {
+export const createAlbum = async (req, res) => {
   try {
     const artist = await Artist.findByPk(req.body.artist_id);
     if (!artist) {
@@ -14,7 +14,7 @@ exports.createAlbum = async (req, res) => {
   }
 };
 
-exports.getAlbum = async (req, res) => {
+export const getAlbum = async (req, res) => {
   try {
     const album = await Album.findByPk(req.params.id, {
       include: Artist,
@@ -29,7 +29,7 @@ exports.getAlbum = async (req, res) => {
   }
 };
 
-exports.updateAlbum = async (req, res) => {
+export const updateAlbum = async (req, res) => {
   try {
     const artist = await Artist.findByPk(req.body.artist_id);
     if (!artist) {
@@ -48,7 +48,7 @@ exports.updateAlbum = async (req, res) => {
   }
 };
 
-exports.deleteAlbum = async (req, res) => {
+export const deleteAlbum = async (req, res) => {
   try {
     const album = await Album.destroy({
       where: {id: req.params.id},

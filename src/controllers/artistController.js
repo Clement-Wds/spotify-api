@@ -1,4 +1,4 @@
-import Artist from '../models/artist';
+import Artist from '../models/artist.js';
 
 export const createArtist = async (req, res) => {
   try {
@@ -12,11 +12,9 @@ export const createArtist = async (req, res) => {
 export const getArtist = async (req, res) => {
   try {
     const artist = await Artist.findByPk(req.params.id);
-    if (artist) {
-      res.status(200).json(artist);
-    } else {
-      res.status(404).json({message: 'Artist not found'});
-    }
+    res
+      .status(artist ? 200 : 404)
+      .json(artist || {message: 'Artist not found'});
   } catch (err) {
     res.status(500).json({message: err.message});
   }
@@ -24,14 +22,12 @@ export const getArtist = async (req, res) => {
 
 export const updateArtist = async (req, res) => {
   try {
-    const artist = await Artist.update(req.body, {
+    const [updated] = await Artist.update(req.body, {
       where: {id: req.params.id},
     });
-    if (artist[0] === 1) {
-      res.status(200).json({message: 'Artist updated successfully'});
-    } else {
-      res.status(404).json({message: 'Artist not found'});
-    }
+    res.status(updated ? 200 : 404).json({
+      message: updated ? 'Artist updated successfully' : 'Artist not found',
+    });
   } catch (err) {
     res.status(500).json({message: err.message});
   }
@@ -39,14 +35,10 @@ export const updateArtist = async (req, res) => {
 
 export const deleteArtist = async (req, res) => {
   try {
-    const artist = await Artist.destroy({
-      where: {id: req.params.id},
+    const deleted = await Artist.destroy({where: {id: req.params.id}});
+    res.status(deleted ? 200 : 404).json({
+      message: deleted ? 'Artist deleted successfully' : 'Artist not found',
     });
-    if (artist === 1) {
-      res.status(200).json({message: 'Artist deleted successfully'});
-    } else {
-      res.status(404).json({message: 'Artist not found'});
-    }
   } catch (err) {
     res.status(500).json({message: err.message});
   }

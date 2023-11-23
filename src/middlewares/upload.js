@@ -1,3 +1,5 @@
+import multer from 'multer';
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './uploads');
@@ -6,3 +8,5 @@ const storage = multer.diskStorage({
     cb(null, `${file.fieldname}-${Date.now()}`);
   },
 });
+
+export default multer({storage});

@@ -1,8 +1,8 @@
-import {upload} from '../middleware/upload';
-import {convertAudio, convertImage} from '../middleware/convert';
-const Music = require('../models/music');
-const Artist = require('../models/artist');
-const Album = require('../models/album');
+import upload from '../middlewares/upload.js';
+import {convertAudio, convertImage} from '../middlewares/convert.js';
+import Music from '../models/music.js';
+import Artist from '../models/artist.js';
+import Album from '../models/album.js';
 
 export const createMusic = [
   upload.single('file'),
@@ -29,7 +29,7 @@ export const createMusic = [
   },
 ];
 
-exports.getMusic = async (req, res) => {
+export const getMusic = async (req, res) => {
   try {
     const music = await Music.findByPk(req.params.id, {
       include: Artist,
@@ -58,7 +58,7 @@ export const updateMusic = [
       if (!album) {
         return res.status(404).json({message: 'Album not found'});
       }
-      const music = await Music.update(
+      const [updated] = await Music.update(
         {
           ...req.body,
           filePath: req.file ? req.file.path : undefined,
@@ -67,27 +67,23 @@ export const updateMusic = [
           where: {id: req.params.id},
         },
       );
-      if (music[0] === 1) {
-        res.status(200).json({message: 'Music updated successfully'});
-      } else {
-        res.status(404).json({message: 'Music not found'});
-      }
+      res.status(updated ? 200 : 404).json({
+        message: updated ? 'Music updated successfully' : 'Music not found',
+      });
     } catch (err) {
       res.status(500).json({message: err.message});
     }
   },
 ];
 
-exports.deleteMusic = async (req, res) => {
+export const deleteMusic = async (req, res) => {
   try {
-    const music = await Music.destroy({
+    const deleted = await Music.destroy({
       where: {id: req.params.id},
     });
-    if (music === 1) {
-      res.status(200).json({message: 'Music deleted successfully'});
-    } else {
-      res.status(404).json({message: 'Music not found'});
-    }
+    res.status(deleted ? 200 : 404).json({
+      message: deleted ? 'Music deleted successfully' : 'Music not found',
+    });
   } catch (err) {
     res.status(500).json({message: err.message});
   }

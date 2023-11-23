@@ -14,9 +14,13 @@ Create `.env` file
 .env configuration :
 
  <pre>
-DB_HOST=
-DB_USER=
+PORT=3001
+
+DB_HOST=localhost
+DB_USER=root
 DB_PASSWORD=
-DB_DATABASE=
-PORT=3000
+DB_DATABASE=spotify
+DB_PORT=3306
+
+JWT_SECRET=
  </pre>

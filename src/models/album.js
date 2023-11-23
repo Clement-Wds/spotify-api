@@ -1,5 +1,5 @@
-const {DataTypes} = require('sequelize');
-const sequelize = require('./src/sequelize');
+import {DataTypes} from 'sequelize';
+import sequelize from '../sequelize.js';
 
 const Album = sequelize.define(
   'Album',
@@ -16,9 +16,8 @@ const Album = sequelize.define(
         key: 'id',
       },
     },
-    // Add other fields as needed
   },
   {},
 );
 
-module.exports = Album;
+export default Album;

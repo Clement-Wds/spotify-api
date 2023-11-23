@@ -1,8 +1,7 @@
-// cache.js
-const redis = require('redis');
+import redis from 'redis';
 const redisClient = redis.createClient();
 
-function cache(req, res, next) {
+const cache = (req, res, next) => {
   const {id} = req.params;
 
   redisClient.get(id, (err, data) => {
@@ -14,6 +13,6 @@ function cache(req, res, next) {
       next();
     }
   });
-}
+};
 
-module.exports = cache;
+export default cache;

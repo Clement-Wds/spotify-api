@@ -1,5 +1,5 @@
-const {DataTypes} = require('sequelize');
-const sequelize = require('./src/sequelize');
+import {DataTypes} from 'sequelize';
+import sequelize from '../sequelize.js';
 
 const Artist = sequelize.define(
   'Artist',
@@ -12,4 +12,4 @@ const Artist = sequelize.define(
   {},
 );
 
-module.exports = Artist;
+export default Artist;

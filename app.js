@@ -1,10 +1,10 @@
 import express from 'express';
-const mysql = require('mysql2');
-const dotenv = require('dotenv');
-const routes = require('./src/routes');
-const sequelize = require('./src/sequelize');
-const cors = require('cors');
-const redis = require('redis');
+import mysql from 'mysql2';
+import dotenv from 'dotenv';
+import routes from './src/routes/index.js';
+import sequelize from './src/sequelize.js';
+import cors from 'cors';
+import redis from 'redis';
 
 dotenv.config(); // Chargement des variables d'environnement depuis le fichier .env
 
@@ -34,12 +34,12 @@ const db = mysql.createConnection({
   database: process.env.DB_DATABASE,
 });
 
-// // Middleware d'erreur global
+// Middleware d'erreur global
 app.use((err, req, res, next) => {
   res.status(500).send('Erreur : ' + err.message);
 });
 
-// // Connexion à la base de données
+// Connexion à la base de données
 db.connect(err => {
   if (err) {
     // Appel du middleware d'erreur global avec l'erreur

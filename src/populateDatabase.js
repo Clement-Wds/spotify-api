@@ -1,17 +1,14 @@
-const Artist = require('./models/artist');
-const Music = require('./models/music');
-const Album = require('./models/album');
+import Artist from './models/artist.js';
+import Music from './models/music.js';
+import Album from './models/album.js';
 
 async function populateDatabase() {
-  // Insérer des données dans la table artists
   const artist1 = await Artist.create({name: 'Artist 1'});
   const artist2 = await Artist.create({name: 'Artist 2'});
 
-  // Insérer des données dans la table albums
   const album1 = await Album.create({title: 'Album 1', artist_id: artist1.id});
   const album2 = await Album.create({title: 'Album 2', artist_id: artist2.id});
 
-  // Insérer des données dans la table musics
   await Music.create({
     title: 'Music 1',
     artist_id: artist1.id,

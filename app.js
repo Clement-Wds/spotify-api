@@ -42,7 +42,6 @@ app.use((err, req, res, next) => {
 // Connexion à la base de données
 db.connect(err => {
   if (err) {
-    // Appel du middleware d'erreur global avec l'erreur
     console.log(err);
     //return next(err);
   }

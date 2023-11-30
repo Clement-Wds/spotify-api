@@ -16,7 +16,7 @@ export const createMusic = [
       }
       const album = await Album.findByPk(req.body.album_id);
       if (!album) {
-        return res.status(404).json({message: 'Album not found'});
+        //return res.status(404).json({message: 'Album not found'});
       }
       const music = await Music.create({
         ...req.body,
@@ -56,7 +56,7 @@ export const updateMusic = [
       }
       const album = await Album.findByPk(req.body.album_id);
       if (!album) {
-        return res.status(404).json({message: 'Album not found'});
+        //return res.status(404).json({message: 'Album not found'});
       }
       const [updated] = await Music.update(
         {

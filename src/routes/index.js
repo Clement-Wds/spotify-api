@@ -1,7 +1,7 @@
 import express from 'express';
 import {register, login} from '../controllers/authController.js';
 import {
-  getAllMusic
+  getAllMusic,
   streamMusicFile,
   createMusic,
   getMusic,

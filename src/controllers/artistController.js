@@ -1,5 +1,19 @@
 import Artist from '../models/artist.js';
 
+//GET ALL Artists
+export const getAllArtists = async (req, res) => {
+  try {
+    const artists = await Artist.findAll();
+    if (artists) {
+      res.status(200).json(artists);
+    } else {
+      res.status(404).json({message: 'No artists found'});
+    }
+  } catch (err) {
+    res.status(500).json({message: err.message});
+  }
+};
+
 export const createArtist = async (req, res) => {
   try {
     const artist = await Artist.create(req.body);

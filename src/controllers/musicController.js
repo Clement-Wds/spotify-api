@@ -4,6 +4,34 @@ import Music from '../models/music.js';
 import Artist from '../models/artist.js';
 import Album from '../models/album.js';
 
+//GET ALL Musics
+export const getAllMusic = async (req, res) => {
+  try {
+    const music = await Music.findAll();
+    if (music) {
+      res.status(200).json(music);
+    } else {
+      res.status(404).json({message: 'No music found'});
+    }
+  } catch (err) {
+    res.status(500).json({message: err.message});
+  }
+};
+
+//STREAM
+export const streamMusicFile = async (req, res) => {
+  try {
+    const music = await Music.findByPk(req.params.id);
+    if (music) {
+      res.sendFile(music.filePath);
+    } else {
+      res.status(404).json({message: 'Music not found'});
+    }
+  } catch (err) {
+    res.status(500).json({message: err.message});
+  }
+};
+
 export const createMusic = [
   upload.single('file'),
   convertAudio,

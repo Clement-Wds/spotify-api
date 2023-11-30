@@ -1,6 +1,20 @@
 import Album from '../models/album.js';
 import Artist from '../models/artist.js';
 
+//GET ALL Albums
+export const getAllAlbums = async (req, res) => {
+  try {
+    const albums = await Album.findAll();
+    if (albums) {
+      res.status(200).json(albums);
+    } else {
+      res.status(404).json({message: 'No albums found'});
+    }
+  } catch (err) {
+    res.status(500).json({message: err.message});
+  }
+};
+
 export const createAlbum = async (req, res) => {
   try {
     const artist = await Artist.findByPk(req.body.artist_id);

@@ -1,18 +1,22 @@
 import express from 'express';
 import {register, login} from '../controllers/authController.js';
 import {
+  getAllMusic
+  streamMusicFile,
   createMusic,
   getMusic,
   updateMusic,
   deleteMusic,
 } from '../controllers/musicController.js';
 import {
+  getAllArtists,
   createArtist,
   getArtist,
   updateArtist,
   deleteArtist,
 } from '../controllers/artistController.js';
 import {
+  getAllAlbums,
   createAlbum,
   getAlbum,
   updateAlbum,
@@ -34,21 +38,21 @@ router.get('/protected', authenticateToken, (req, res) =>
 router.get('/musics', getAllMusic);
 router.get('/music/file/:id', streamMusicFile);
 router.post('/music', authenticateToken, createMusic);
-router.get('/music/:id', authenticateToken, cache, getMusic);
+router.get('/music/:id', cache, getMusic);
 router.put('/music/:id', authenticateToken, updateMusic);
 router.delete('/music/:id', authenticateToken, deleteMusic);
 
 // Routes for artist
 router.get('/artists', getAllArtists);
 router.post('/artist', authenticateToken, createArtist);
-router.get('/artist/:id', authenticateToken, getArtist);
+router.get('/artist/:id', getArtist);
 router.put('/artist/:id', authenticateToken, updateArtist);
 router.delete('/artist/:id', authenticateToken, deleteArtist);
 
 // Routes for album
 router.get('/albums', getAllAlbums);
 router.post('/album', authenticateToken, createAlbum);
-router.get('/album/:id', authenticateToken, getAlbum);
+router.get('/album/:id', getAlbum);
 router.put('/album/:id', authenticateToken, updateAlbum);
 router.delete('/album/:id', authenticateToken, deleteAlbum);
 

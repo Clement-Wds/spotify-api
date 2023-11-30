@@ -31,18 +31,22 @@ router.get('/protected', authenticateToken, (req, res) =>
 );
 
 // Routes for music
+router.get('/musics', getAllMusic);
+router.get('/music/file/:id', streamMusicFile);
 router.post('/music', authenticateToken, createMusic);
 router.get('/music/:id', authenticateToken, cache, getMusic);
 router.put('/music/:id', authenticateToken, updateMusic);
 router.delete('/music/:id', authenticateToken, deleteMusic);
 
 // Routes for artist
+router.get('/artists', getAllArtists);
 router.post('/artist', authenticateToken, createArtist);
 router.get('/artist/:id', authenticateToken, getArtist);
 router.put('/artist/:id', authenticateToken, updateArtist);
 router.delete('/artist/:id', authenticateToken, deleteArtist);
 
 // Routes for album
+router.get('/albums', getAllAlbums);
 router.post('/album', authenticateToken, createAlbum);
 router.get('/album/:id', authenticateToken, getAlbum);
 router.put('/album/:id', authenticateToken, updateAlbum);

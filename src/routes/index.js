@@ -1,6 +1,7 @@
 import express from 'express';
 import {register, login} from '../controllers/authController.js';
 import {
+  getMusicByArtist,
   getAllMusic,
   streamMusicFile,
   createMusic,
@@ -9,6 +10,7 @@ import {
   deleteMusic,
 } from '../controllers/musicController.js';
 import {
+  getArtistByMusic,
   getAllArtists,
   createArtist,
   getArtist,
@@ -41,6 +43,7 @@ router.post('/music', authenticateToken, createMusic);
 router.get('/music/:id', cache, getMusic);
 router.put('/music/:id', authenticateToken, updateMusic);
 router.delete('/music/:id', authenticateToken, deleteMusic);
+router.get('/artist/:artistId/musics', getMusicByArtist);
 
 // Routes for artist
 router.get('/artists', getAllArtists);
@@ -48,6 +51,7 @@ router.post('/artist', authenticateToken, createArtist);
 router.get('/artist/:id', getArtist);
 router.put('/artist/:id', authenticateToken, updateArtist);
 router.delete('/artist/:id', authenticateToken, deleteArtist);
+router.get('/music/:musicId/artist', getArtistByMusic);
 
 // Routes for album
 router.get('/albums', getAllAlbums);

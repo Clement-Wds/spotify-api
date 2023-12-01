@@ -93,3 +93,21 @@ export const getAlbumsByArtist = async (req, res) => {
     res.status(500).send({error: 'Erreur du serveur.'});
   }
 };
+
+export const getAlbumByMusic = async (req, res) => {
+  try {
+    const musicId = req.params.musicId;
+    const music = await Music.findByPk(musicId);
+    if (!music) {
+      return res.status(404).send({error: 'Musique non trouvée.'});
+    }
+    const album = await Artist.findByPk(music.album_id);
+    if (!album) {
+      return res.status(404).send({error: 'Album non trouvé.'});
+    }
+    res.status(200).send(album);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({error: 'Erreur du serveur.'});
+  }
+};

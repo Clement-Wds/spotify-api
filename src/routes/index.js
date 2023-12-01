@@ -8,6 +8,7 @@ import {
   updateMusic,
   deleteMusic,
   getMusicByArtist,
+  getMusicsByAlbum,
 } from '../controllers/musicController.js';
 import {
   getAllArtists,
@@ -45,6 +46,7 @@ router.get('/music/:id', cache, getMusic);
 router.put('/music/:id', authenticateToken, updateMusic);
 router.delete('/music/:id', authenticateToken, deleteMusic);
 router.get('/artist/:artistId/musics', getMusicByArtist);
+router.get('/album/:albumId/musics', getMusicsByAlbum);
 
 // Routes for artist
 router.get('/artists', getAllArtists);

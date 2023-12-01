@@ -1,21 +1,22 @@
 import express from 'express';
 import {register, login} from '../controllers/authController.js';
 import {
-  getMusicByArtist,
   getAllMusic,
   streamMusicFile,
   createMusic,
   getMusic,
   updateMusic,
   deleteMusic,
+  getMusicByArtist,
 } from '../controllers/musicController.js';
 import {
-  getArtistByMusic,
   getAllArtists,
   createArtist,
   getArtist,
   updateArtist,
   deleteArtist,
+  getArtistByMusic,
+  getArtistByAlbum,
 } from '../controllers/artistController.js';
 import {
   getAllAlbums,
@@ -52,6 +53,7 @@ router.get('/artist/:id', getArtist);
 router.put('/artist/:id', authenticateToken, updateArtist);
 router.delete('/artist/:id', authenticateToken, deleteArtist);
 router.get('/music/:musicId/artist', getArtistByMusic);
+router.get('/album/:albumId/artist', getArtistByAlbum);
 
 // Routes for album
 router.get('/albums', getAllAlbums);

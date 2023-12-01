@@ -1,9 +1,12 @@
 import ffmpeg from 'fluent-ffmpeg';
+import ffmpegPath from 'ffmpeg-static';
 import sharp from 'sharp';
+
+ffmpeg.setFfmpegPath(ffmpegPath);
 
 export const convertAudio = (req, res, next) => {
   if (req.file && req.file.mimetype.startsWith('audio/')) {
-    const output = `${req.file.path}.m4a`;
+    const output = `${req.file.path}.ogg`;
     ffmpeg(req.file.path)
       .output(output)
       .on('end', () => {

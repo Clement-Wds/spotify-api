@@ -7,7 +7,10 @@ export const authenticateToken = (req, res, next) => {
   if (!token) return res.status(401).send('Token manquant');
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.status(403).send('Token invalide');
+    if (err) {
+      console.log(err);
+      return res.status(403).send('Token invalide');
+    }
     req.user = user;
     next();
   });

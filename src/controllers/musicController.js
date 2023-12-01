@@ -116,3 +116,35 @@ export const deleteMusic = async (req, res) => {
     res.status(500).json({message: err.message});
   }
 };
+
+export const getMusicByArtist = async (req, res) => {
+  try {
+    const artistId = req.params.artistId;
+    const musics = await Music.findAll({where: {artist_id: artistId}});
+    if (!musics) {
+      return res
+        .status(404)
+        .send({error: 'Aucune musique trouvée pour cet artiste.'});
+    }
+    res.status(200).send(musics);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({error: 'Erreur du serveur.'});
+  }
+};
+
+export const getMusicsByAlbum = async (req, res) => {
+  try {
+    const albumId = req.params.albumId;
+    const musics = await Music.findAll({where: {album_id: albumId}});
+    if (!musics) {
+      return res
+        .status(404)
+        .send({error: 'Aucune musique trouvée pour cet album.'});
+    }
+    res.status(200).send(musics);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({error: 'Erreur du serveur.'});
+  }
+};

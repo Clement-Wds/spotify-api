@@ -1,5 +1,6 @@
 import Album from '../models/album.js';
 import Artist from '../models/artist.js';
+import Music from '../models/Music.js';
 
 //GET ALL Albums
 export const getAllAlbums = async (req, res) => {
@@ -74,5 +75,39 @@ export const deleteAlbum = async (req, res) => {
     }
   } catch (err) {
     res.status(500).json({message: err.message});
+  }
+};
+
+export const getAlbumsByArtist = async (req, res) => {
+  try {
+    const artistId = req.params.artistId;
+    const albums = await Album.findAll({where: {artist_id: artistId}});
+    if (!albums) {
+      return res
+        .status(404)
+        .send({error: 'Aucun album trouvé pour cet artiste.'});
+    }
+    res.status(200).send(albums);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({error: 'Erreur du serveur.'});
+  }
+};
+
+export const getAlbumByMusic = async (req, res) => {
+  try {
+    const musicId = req.params.musicId;
+    const music = await Music.findByPk(musicId);
+    if (!music) {
+      return res.status(404).send({error: 'Musique non trouvée.'});
+    }
+    const album = await Artist.findByPk(music.album_id);
+    if (!album) {
+      return res.status(404).send({error: 'Album non trouvé.'});
+    }
+    res.status(200).send(album);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({error: 'Erreur du serveur.'});
   }
 };

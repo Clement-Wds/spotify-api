@@ -1,8 +1,6 @@
 import upload from '../middlewares/upload.js';
 import {convertAudio, convertImage} from '../middlewares/convert.js';
-import Music from '../models/music.js';
-import Artist from '../models/artist.js';
-import Album from '../models/album.js';
+import {Artist, Album, Music} from '../models/initModels.js';
 
 //GET ALL Musics
 export const getAllMusic = async (req, res) => {

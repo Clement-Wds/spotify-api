@@ -1,6 +1,4 @@
-import Artist from '../models/artist.js';
-import Music from '../models/Music.js';
-import Album from '../models/album.js';
+import {Artist, Album, Music} from '../models/initModels.js';
 
 //GET ALL Artists
 export const getAllArtists = async (req, res) => {

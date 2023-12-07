@@ -4,6 +4,11 @@ import sequelize from '../sequelize.js';
 const Album = sequelize.define(
   'Album',
   {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -11,13 +16,20 @@ const Album = sequelize.define(
     artist_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: 'artists',
-        key: 'id',
-      },
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
     },
   },
-  {},
+  {
+    tableName: 'albums',
+    timestamps: true,
+  },
 );
 
 export default Album;

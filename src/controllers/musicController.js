@@ -31,7 +31,10 @@ export const streamMusicFile = async (req, res) => {
 };
 
 export const createMusic = [
-  upload.single('file'),
+  upload.fields([
+    {name: 'file', maxCount: 1},
+    {name: 'coverImage', maxCount: 1},
+  ]),
   convertAudio,
   convertImage,
   async (req, res) => {
@@ -45,15 +48,16 @@ export const createMusic = [
         return res.status(404).json({message: 'Album not found'});
       }
 
-      console.log(req.body);
-
       const music = await Music.create({
         ...req.body,
-        filePath: req.file.path,
+        filePath: req.files.file ? req.files.file[0].path : null,
+        coverImagePath: req.files.coverImage
+          ? req.files.coverImage[0].path
+          : null,
       });
       res.status(201).json(music);
     } catch (err) {
-      console.log(req.file);
+      console.log(req.files);
       console.log(err);
       res.status(400).json({message: err.message});
     }

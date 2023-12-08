@@ -5,12 +5,12 @@ import sharp from 'sharp';
 ffmpeg.setFfmpegPath(ffmpegPath);
 
 export const convertAudio = (req, res, next) => {
-  if (req.file && req.file.mimetype.startsWith('audio/')) {
-    const output = `${req.file.path}.ogg`;
-    ffmpeg(req.file.path)
+  if (req.files.file) {
+    const output = `${req.files.file[0].path}.ogg`;
+    ffmpeg(req.files.file[0].path)
       .output(output)
       .on('end', () => {
-        req.file.path = output;
+        req.files.file[0].path = output;
         next();
       })
       .run();
@@ -20,13 +20,13 @@ export const convertAudio = (req, res, next) => {
 };
 
 export const convertImage = (req, res, next) => {
-  if (req.file && req.file.mimetype.startsWith('image/')) {
-    const output = `${req.file.path}.webp`;
-    sharp(req.file.path)
+  if (req.files.coverImage) {
+    const output = `${req.files.coverImage[0].path}.webp`;
+    sharp(req.files.coverImage[0].path)
       .toFormat('webp')
       .toFile(output)
       .then(() => {
-        req.file.path = output;
+        req.files.coverImage[0].path = output;
         next();
       });
   } else {

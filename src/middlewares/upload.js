@@ -9,4 +9,6 @@ const storage = multer.diskStorage({
   },
 });
 
-export default multer({storage});
+const upload = multer({storage});
+
+export default upload;

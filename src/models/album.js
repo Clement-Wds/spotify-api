@@ -25,6 +25,7 @@ const Album = sequelize.define(
       type: DataTypes.DATE,
       allowNull: false,
     },
+    coverImagePath: DataTypes.STRING,
   },
   {
     tableName: 'albums',

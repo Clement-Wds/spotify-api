@@ -28,7 +28,7 @@ const Music = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    coverImagePath: DataTypes.STRING,
+    // coverImagePath: DataTypes.STRING,
     duration: DataTypes.INTEGER, // en secondes
     createdAt: {
       type: DataTypes.DATE,

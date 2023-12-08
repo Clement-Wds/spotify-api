@@ -1,6 +1,7 @@
 import {Artist, Album, Music} from '../models/initModels.js';
 import {albumUpload} from '../middlewares/upload.js';
 import {convertImage} from '../middlewares/convertImage.js';
+import path from 'path';
 
 //GET ALL Albums
 export const getAllAlbums = async (req, res) => {
@@ -45,6 +46,21 @@ export const getAlbum = async (req, res) => {
     });
     if (album) {
       res.status(200).json(album);
+    } else {
+      res.status(404).json({message: 'Album not found'});
+    }
+  } catch (err) {
+    res.status(500).json({message: err.message});
+  }
+};
+
+//GET IMAGE
+export const getAlbumImage = async (req, res) => {
+  try {
+    const album = await Album.findByPk(req.params.id);
+    if (album) {
+      const absolutePath = path.resolve(album.coverImagePath);
+      res.sendFile(absolutePath);
     } else {
       res.status(404).json({message: 'Album not found'});
     }

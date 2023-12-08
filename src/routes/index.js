@@ -27,6 +27,7 @@ import {
   deleteAlbum,
   getAlbumsByArtist,
   getAlbumByMusic,
+  getAlbumImage,
 } from '../controllers/albumController.js';
 import {authenticateToken} from '../middlewares/auth.js';
 import cache from '../middlewares/cache.js';
@@ -61,6 +62,7 @@ router.get('/album/:albumId/artist', getArtistByAlbum);
 
 // Routes for album
 router.get('/albums', getAllAlbums);
+router.get('/album/image/:id', getAlbumImage);
 router.post('/album', authenticateToken, createAlbum);
 router.get('/album/:id', getAlbum);
 router.put('/album/:id', authenticateToken, updateAlbum);

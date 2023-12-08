@@ -63,7 +63,7 @@ export const createMusic = [
 export const getMusic = async (req, res) => {
   try {
     const music = await Music.findByPk(req.params.id, {
-      include: Artist,
+      include: {model: Artist, as: 'artist'},
     });
     if (music) {
       res.status(200).json(music);

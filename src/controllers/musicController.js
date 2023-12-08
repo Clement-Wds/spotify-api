@@ -1,5 +1,5 @@
-import upload from '../middlewares/upload.js';
-import {convertAudio, convertImage} from '../middlewares/convert.js';
+import {upload} from '../middlewares/upload.js';
+import {convertAudio} from '../middlewares/convertAudio.js';
 import {Artist, Album, Music} from '../models/initModels.js';
 
 //GET ALL Musics
@@ -33,7 +33,6 @@ export const streamMusicFile = async (req, res) => {
 export const createMusic = [
   upload.single('file'),
   convertAudio,
-  convertImage,
   async (req, res) => {
     try {
       const artist = await Artist.findByPk(req.body.artist_id);
@@ -45,11 +44,9 @@ export const createMusic = [
         return res.status(404).json({message: 'Album not found'});
       }
 
-      console.log(req.body);
-
       const music = await Music.create({
         ...req.body,
-        filePath: req.file.path,
+        filePath: req.file ? req.file.path : null,
       });
       res.status(201).json(music);
     } catch (err) {
@@ -78,7 +75,6 @@ export const getMusic = async (req, res) => {
 export const updateMusic = [
   upload.single('file'),
   convertAudio,
-  convertImage,
   async (req, res) => {
     try {
       const artist = await Artist.findByPk(req.body.artist_id);

@@ -44,7 +44,7 @@ router.get('/protected', authenticateToken, (req, res) =>
 router.get('/musics', getAllMusic);
 router.get('/music/file/:id', streamMusicFile);
 router.post('/music', authenticateToken, createMusic);
-router.get('/music/:id', cache, getMusic);
+router.get('/music/:id', getMusic);
 router.put('/music/:id', authenticateToken, updateMusic);
 router.delete('/music/:id', authenticateToken, deleteMusic);
 router.get('/artist/:artistId/musics', getMusicByArtist);

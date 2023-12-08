@@ -1,16 +1,27 @@
-import ffmpeg from 'fluent-ffmpeg';
-import sharp from 'sharp';
+import imagemin from 'imagemin';
+import imageminWebp from 'imagemin-webp';
+import path from 'path';
 
-export const convertImage = (req, res, next) => {
+export const convertImage = async (req, res, next) => {
   if (req.files && req.files.coverImage) {
-    const output = `${req.files.coverImage[0].path}.webp`;
-    sharp(req.files.coverImage[0].path)
-      .toFormat('webp')
-      .toFile(output)
-      .then(() => {
-        req.files.coverImage[0].path = output;
-        next();
+    const inputPath = req.files.coverImage[0].path;
+    const outputPath = path.join(
+      path.dirname(inputPath),
+      `${path.basename(inputPath, path.extname(inputPath))}.webp`,
+    );
+
+    try {
+      await imagemin([inputPath], {
+        destination: path.dirname(outputPath),
+        plugins: [imageminWebp({quality: 50})],
       });
+
+      req.files.coverImage[0].path = outputPath;
+      next();
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({message: err.message});
+    }
   } else {
     next();
   }

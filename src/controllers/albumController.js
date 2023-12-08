@@ -17,7 +17,7 @@ export const getAllAlbums = async (req, res) => {
 };
 
 export const createAlbum = [
-  albumUpload.single('coverImage'),
+  albumUpload.single('coverImagePath'),
   convertImage,
   async (req, res) => {
     try {
@@ -53,24 +53,36 @@ export const getAlbum = async (req, res) => {
   }
 };
 
-export const updateAlbum = async (req, res) => {
-  try {
-    const artist = await Artist.findByPk(req.body.artist_id);
-    if (!artist) {
-      return res.status(404).json({message: 'Artist not found'});
+export const updateAlbum = [
+  albumUpload.single('coverImagePath'),
+  convertImage,
+  async (req, res) => {
+    try {
+      const {artist_id} = req.body;
+      const {id} = req.params;
+
+      const artist = await Artist.findByPk(artist_id);
+      if (!artist) {
+        return res.status(404).json({message: 'Artist not found'});
+      }
+
+      const updateData = {...req.body};
+      if (req.file) {
+        updateData.coverImagePath = req.file.path;
+      }
+
+      const [updateCount] = await Album.update(updateData, {where: {id}});
+      if (updateCount === 0) {
+        return res.status(404).json({message: 'Album not found'});
+      }
+
+      return res.status(200).json({message: 'Album updated successfully'});
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({message: err.message});
     }
-    const album = await Album.update(req.body, {
-      where: {id: req.params.id},
-    });
-    if (album[0] === 1) {
-      res.status(200).json({message: 'Album updated successfully'});
-    } else {
-      res.status(404).json({message: 'Album not found'});
-    }
-  } catch (err) {
-    res.status(500).json({message: err.message});
-  }
-};
+  },
+];
 
 export const deleteAlbum = async (req, res) => {
   try {

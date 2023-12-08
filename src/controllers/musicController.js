@@ -104,6 +104,7 @@ export const updateMusic = [
 ];
 
 export const deleteMusic = async (req, res) => {
+  //TODO: Delete files
   try {
     const deleted = await Music.destroy({
       where: {id: req.params.id},

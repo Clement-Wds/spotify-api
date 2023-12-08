@@ -101,6 +101,7 @@ export const updateAlbum = [
 ];
 
 export const deleteAlbum = async (req, res) => {
+  //TODO: Delete files
   try {
     const album = await Album.destroy({
       where: {id: req.params.id},

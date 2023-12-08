@@ -52,13 +52,13 @@ db.connect(err => {
 app.use('/api', routes); // Toutes les routes seront préfixées par /api
 
 // Synchronisez les modèles avec la base de données
-sequelize
-  .sync({
-    //alter: true,
-  })
-  .then(() => {
-    console.log(`Serveur en cours d'exécution sur le port ${port}`);
-  });
+// sequelize
+//   .sync({
+//     //alter: true,
+//   })
+//   .then(() => {
+//     console.log(`Serveur en cours d'exécution sur le port ${port}`);
+//   });
 
 app.listen(port, () => {
   // Envoie un message au client lorsque le serveur démarre

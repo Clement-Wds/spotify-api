@@ -11,4 +11,15 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage});
 
-export default upload;
+const albumStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './uploads/albums');
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${file.fieldname}-${Date.now()}`);
+  },
+});
+
+const albumUpload = multer({storage: albumStorage});
+
+export {upload, albumUpload};

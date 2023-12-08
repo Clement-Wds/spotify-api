@@ -1,4 +1,6 @@
 import {Artist, Album, Music} from '../models/initModels.js';
+import {albumUpload} from '../middlewares/upload.js';
+import {convertImage} from '../middlewares/convertImage.js';
 
 //GET ALL Albums
 export const getAllAlbums = async (req, res) => {
@@ -14,18 +16,27 @@ export const getAllAlbums = async (req, res) => {
   }
 };
 
-export const createAlbum = async (req, res) => {
-  try {
-    const artist = await Artist.findByPk(req.body.artist_id);
-    if (!artist) {
-      return res.status(404).json({message: 'Artist not found'});
+export const createAlbum = [
+  albumUpload.single('coverImage'),
+  convertImage,
+  async (req, res) => {
+    try {
+      const artist = await Artist.findByPk(req.body.artist_id);
+      if (!artist) {
+        return res.status(404).json({message: 'Artist not found'});
+      }
+      const album = await Album.create({
+        ...req.body,
+        coverImagePath: req.file ? req.file.path : null,
+      });
+      res.status(201).json(album);
+    } catch (err) {
+      console.log(req.file);
+      console.log(err);
+      res.status(400).json({message: err.message});
     }
-    const album = await Album.create(req.body);
-    res.status(201).json(album);
-  } catch (err) {
-    res.status(400).json({message: err.message});
-  }
-};
+  },
+];
 
 export const getAlbum = async (req, res) => {
   try {

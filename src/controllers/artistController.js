@@ -1,4 +1,5 @@
 import {Artist, Album, Music} from '../models/initModels.js';
+import fs from 'fs';
 
 //GET ALL Artists
 export const getAllArtists = async (req, res) => {
@@ -47,9 +48,67 @@ export const updateArtist = async (req, res) => {
   }
 };
 
+// Function to delete a music
+const deleteMusicFile = async music => {
+  // Delete the file
+  if (fs.existsSync(music.filePath)) {
+    fs.unlink(music.filePath, err => {
+      if (err) {
+        console.error(err);
+      }
+    });
+  } else {
+    console.log('File does not exist');
+  }
+
+  // Delete the database entry
+  await Music.destroy({
+    where: {id: music.id},
+  });
+};
+
+// Function to delete an album
+const deleteAlbumFile = async album => {
+  // Delete the file
+  if (fs.existsSync(album.coverImagePath)) {
+    fs.unlink(album.coverImagePath, err => {
+      if (err) {
+        console.error(err);
+      }
+    });
+  } else {
+    console.log('File does not exist');
+  }
+
+  // Delete the database entry
+  await Album.destroy({
+    where: {id: album.id},
+  });
+};
+
 export const deleteArtist = async (req, res) => {
   try {
-    const deleted = await Artist.destroy({where: {id: req.params.id}});
+    const artist = await Artist.findByPk(req.params.id);
+    if (!artist) {
+      return res.status(404).json({message: 'Artist not found'});
+    }
+
+    // Delete all musics of the artist
+    const musics = await Music.findAll({where: {artist_id: artist.id}});
+    for (let music of musics) {
+      await deleteMusicFile(music);
+    }
+
+    // Delete all albums of the artist
+    const albums = await Album.findAll({where: {artist_id: artist.id}});
+    for (let album of albums) {
+      await deleteAlbumFile(album);
+    }
+
+    // Delete the database entry
+    const deleted = await Artist.destroy({
+      where: {id: req.params.id},
+    });
     res.status(deleted ? 200 : 404).json({
       message: deleted ? 'Artist deleted successfully' : 'Artist not found',
     });

@@ -1,6 +1,7 @@
 import {upload} from '../middlewares/upload.js';
 import {convertAudio} from '../middlewares/convertAudio.js';
 import {Artist, Album, Music} from '../models/initModels.js';
+import fs from 'fs';
 
 //GET ALL Musics
 export const getAllMusic = async (req, res) => {
@@ -104,8 +105,24 @@ export const updateMusic = [
 ];
 
 export const deleteMusic = async (req, res) => {
-  //TODO: Delete files
   try {
+    const music = await Music.findByPk(req.params.id);
+    if (!music) {
+      return res.status(404).json({message: 'Music not found'});
+    }
+
+    // Delete the file
+    if (fs.existsSync(music.filePath)) {
+      fs.unlink(music.filePath, err => {
+        if (err) {
+          console.error(err);
+        }
+      });
+    } else {
+      console.log('File does not exist');
+    }
+
+    // Delete the database entry
     const deleted = await Music.destroy({
       where: {id: req.params.id},
     });

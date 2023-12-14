@@ -29,6 +29,7 @@ import {
   getAlbumByMusic,
   getAlbumImage,
 } from '../controllers/albumController.js';
+import {search} from '../controllers/searchController.js';
 import {authenticateToken} from '../middlewares/auth.js';
 import cache from '../middlewares/cache.js';
 
@@ -69,5 +70,8 @@ router.put('/album/:id', authenticateToken, updateAlbum);
 router.delete('/album/:id', authenticateToken, deleteAlbum);
 router.get('/artist/:artistId/albums', getAlbumsByArtist);
 router.get('/music/:musicId/album', getAlbumByMusic);
+
+//SEARCH
+router.get('/search', search);
 
 export default router;

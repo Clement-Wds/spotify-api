@@ -1,6 +1,6 @@
-import Artist from './Artist.js';
-import Album from './Album.js';
-import Music from './Music.js';
+import Artist from '../models/artist.js';
+import Album from '../models/album.js';
+import Music from '../models/music.js';
 
 Artist.hasMany(Album, {
   foreignKey: 'artist_id',

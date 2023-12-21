@@ -14,7 +14,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babel-cli": "^6.26.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -32,6 +31,7 @@
     "sharp": "^0.32.6"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
     "eslint": "^8.53.0",

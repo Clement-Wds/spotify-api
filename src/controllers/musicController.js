@@ -2,6 +2,7 @@ import {upload} from '../middlewares/upload.js';
 import {convertAudio} from '../middlewares/convertAudio.js';
 import {Artist, Album, Music} from '../models/initModels.js';
 import fs from 'fs';
+import path from 'path';
 
 //GET ALL Musics
 export const getAllMusic = async (req, res) => {
@@ -22,11 +23,13 @@ export const streamMusicFile = async (req, res) => {
   try {
     const music = await Music.findByPk(req.params.id);
     if (music) {
-      res.sendFile(music.filePath);
+      const absolutePath = path.resolve(music.filePath);
+      res.sendFile(absolutePath);
     } else {
       res.status(404).json({message: 'Music not found'});
     }
   } catch (err) {
+    console.log(err);
     res.status(500).json({message: err.message});
   }
 };

@@ -25,6 +25,7 @@ export const streamMusicFile = async (req, res) => {
     if (music) {
       const absolutePath = path.resolve(music.filePath);
       res.sendFile(absolutePath);
+      console.log(absolutePath);
     } else {
       res.status(404).json({message: 'Music not found'});
     }

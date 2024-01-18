@@ -29,6 +29,15 @@ import {
   getAlbumByMusic,
   getAlbumImage,
 } from '../controllers/albumController.js';
+import {
+  createPlaylist,
+  getAllPlaylists,
+  getPlaylist,
+  updatePlaylist,
+  deletePlaylist,
+  addMusicToPlaylist,
+  removeMusicFromPlaylist,
+} from '../controllers/playlistController.js';
 import {search} from '../controllers/searchController.js';
 import {authenticateToken} from '../middlewares/auth.js';
 import cache from '../middlewares/cache.js';
@@ -70,6 +79,15 @@ router.put('/album/:id', authenticateToken, updateAlbum);
 router.delete('/album/:id', authenticateToken, deleteAlbum);
 router.get('/artist/:artistId/albums', getAlbumsByArtist);
 router.get('/music/:musicId/album', getAlbumByMusic);
+
+// Routes for playlists
+router.post('/playlist', createPlaylist);
+router.get('/playlists', getAllPlaylists);
+router.get('/playlist/:id', getPlaylist);
+router.put('/playlist/:id', updatePlaylist);
+router.delete('/playlist/:id', deletePlaylist);
+router.post('/playlist/:id/music', addMusicToPlaylist);
+router.delete('/playlist/:id/music', removeMusicFromPlaylist);
 
 //SEARCH
 router.get('/search', search);

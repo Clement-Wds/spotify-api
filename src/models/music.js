@@ -21,6 +21,10 @@ const Music = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: true,
     },
+    playlist_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     year: DataTypes.INTEGER,
     genre: DataTypes.STRING,
     trackNumber: DataTypes.INTEGER,

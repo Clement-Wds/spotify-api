@@ -21,6 +21,7 @@
     "express-jwt": "^8.4.1",
     "ffmpeg-static": "^5.2.0",
     "fluent-ffmpeg": "^2.1.2",
+    "http": "^0.0.1-security",
     "imagemin": "^8.0.1",
     "imagemin-webp": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
@@ -28,12 +29,13 @@
     "mysql2": "^3.6.3",
     "redis": "^4.6.11",
     "sequelize": "^6.34.0",
-    "sharp": "^0.32.6"
+    "sharp": "^0.32.6",
+    "socket.io": "^4.7.4"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
+    "babel-cli": "^6.26.0",
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",

@@ -5,6 +5,9 @@ import routes from './src/routes/index.js';
 import sequelize from './src/sequelize.js';
 import cors from 'cors';
 import redis from 'redis';
+import {createServer} from 'http';
+import {Server} from 'socket.io';
+import socketController from './src/controllers/socketController.js';
 
 dotenv.config(); // Chargement des variables d'environnement depuis le fichier .env
 
@@ -60,7 +63,21 @@ app.use('/api', routes); // Toutes les routes seront préfixées par /api
 //     console.log(`Serveur en cours d'exécution sur le port ${port}`);
 //   });
 
-app.listen(port, () => {
-  // Envoie un message au client lorsque le serveur démarre
-  //console.log(`Serveur en cours d'exécution sur le port ${port}`);
+//SOCKETS
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  cors: {
+    origin: 'http://localhost:3000',
+  },
 });
+
+socketController(io);
+
+httpServer.listen(port, () => {
+  //console.log(`Serveur en cours d'exécution sur : ${port}`);
+});
+
+// app.listen(port, () => {
+//   // Envoie un message au client lorsque le serveur démarre
+//   //console.log(`Serveur en cours d'exécution sur le port ${port}`);
+// });

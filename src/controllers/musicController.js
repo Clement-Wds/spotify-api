@@ -24,6 +24,7 @@ export const streamMusicFile = async (req, res) => {
     const music = await Music.findByPk(req.params.id);
     if (music) {
       const absolutePath = path.resolve(music.filePath);
+      absolutePath = absolutePath.replace(/\\/g, '/'); // remplace les backslashes par des slashes
       res.sendFile(absolutePath);
     } else {
       res.status(404).json({message: 'Music not found'});

@@ -5,7 +5,7 @@ import routes from './src/routes/index.js';
 import sequelize from './src/sequelize.js';
 import cors from 'cors';
 import redis from 'redis';
-import {createServer} from 'http';
+import {createServer} from 'https';
 import {Server} from 'socket.io';
 import socketController from './src/controllers/socketController.js';
 
@@ -64,8 +64,14 @@ app.use('/api', routes); // Toutes les routes seront préfixées par /api
 //   });
 
 //SOCKETS
-const httpServer = createServer(app);
-const io = new Server(httpServer, {
+const options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/ceweb-group.com/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/ceweb-group.com/fullchain.pem'),
+};
+
+const httpsServer = createServer(options, app);
+
+const io = new Server(httpsServer, {
   cors: {
     origin: 'https://spotify-frontend-one.vercel.app',
   },
@@ -73,7 +79,7 @@ const io = new Server(httpServer, {
 
 socketController(io);
 
-httpServer.listen(port, () => {
+httpsServer.listen(port, () => {
   //console.log(`Serveur en cours d'exécution sur : ${port}`);
 });
 

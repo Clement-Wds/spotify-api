@@ -67,7 +67,7 @@ app.use('/api', routes); // Toutes les routes seront préfixées par /api
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: 'https://spotify-frontend-one.vercel.app',
   },
 });
 

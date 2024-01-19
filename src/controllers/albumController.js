@@ -60,7 +60,8 @@ export const getAlbumImage = async (req, res) => {
   try {
     const album = await Album.findByPk(req.params.id);
     if (album) {
-      const absolutePath = path.resolve(album.coverImagePath);
+      var absolutePath = path.resolve(album.coverImagePath);
+      absolutePath = absolutePath.replace(/\\/g, '/'); // remplace les backslashes par des slashes
       res.sendFile(absolutePath);
     } else {
       res.status(404).json({message: 'Album not found'});

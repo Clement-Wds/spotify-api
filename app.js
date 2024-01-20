@@ -66,11 +66,11 @@ app.use('/api', routes); // Toutes les routes seront préfixées par /api
 
 //SOCKETS
 const options = {
-  key: fs.readFileSync('./key.pem'), // Modification du chemin du fichier de clé
-  cert: fs.readFileSync('./cert.pem'), // Modification du chemin du fichier de certificat
+  key: fs.readFileSync('./privkey.pem'),
+  cert: fs.readFileSync('./fullchain.pem'),
 };
 
-const httpsServer = createServer(options, app);
+const httpsServer = https.createServer(options, app);
 
 const io = new Server(httpsServer, {
   cors: {

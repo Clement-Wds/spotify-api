@@ -8,6 +8,7 @@ import redis from 'redis';
 import {createServer} from 'https';
 import {Server} from 'socket.io';
 import socketController from './src/controllers/socketController.js';
+import fs from 'fs'; // Ajout de l'importation du module fs
 
 dotenv.config(); // Chargement des variables d'environnement depuis le fichier .env
 
@@ -65,8 +66,8 @@ app.use('/api', routes); // Toutes les routes seront préfixées par /api
 
 //SOCKETS
 const options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/ceweb-group.com/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/ceweb-group.com/fullchain.pem'),
+  key: fs.readFileSync('./key.pem'), // Modification du chemin du fichier de clé
+  cert: fs.readFileSync('./cert.pem'), // Modification du chemin du fichier de certificat
 };
 
 const httpsServer = createServer(options, app);

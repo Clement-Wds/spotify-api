@@ -91,6 +91,18 @@ const removeMusicFromPlaylist = async (req, res) => {
   }
 };
 
+// Get all musics from a playlist
+const getAllMusicsFromPlaylist = async (req, res) => {
+  try {
+    const playlistId = req.params.id;
+    const musics = await Music.findAll({where: {playlist_id: playlistId}});
+    res.json(musics);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({message: 'Server Error'});
+  }
+};
+
 export {
   createPlaylist,
   getAllPlaylists,
@@ -99,4 +111,5 @@ export {
   deletePlaylist,
   addMusicToPlaylist,
   removeMusicFromPlaylist,
+  getAllMusicsFromPlaylist,
 };

@@ -37,6 +37,7 @@ import {
   deletePlaylist,
   addMusicToPlaylist,
   removeMusicFromPlaylist,
+  getAllMusicsFromPlaylist,
 } from '../controllers/playlistController.js';
 import {search} from '../controllers/searchController.js';
 import {authenticateToken} from '../middlewares/auth.js';
@@ -88,6 +89,7 @@ router.put('/playlist/:id', updatePlaylist);
 router.delete('/playlist/:id', deletePlaylist);
 router.post('/playlist/:id/music', addMusicToPlaylist);
 router.delete('/playlist/:id/music', removeMusicFromPlaylist);
+router.get('/playlist/:id/musics', getAllMusicsFromPlaylist);
 
 //SEARCH
 router.get('/search', search);

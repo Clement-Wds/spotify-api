@@ -55,27 +55,14 @@ db.connect(err => {
 
 app.use('/api', routes); // Toutes les routes seront préfixées par /api
 
-//SOCKETS
-// const options = {
-//   key: fs.readFileSync('./key.pem'), // Modification du chemin du fichier de clé
-//   cert: fs.readFileSync('./cert.pem'), // Modification du chemin du fichier de certificat
-// };
-
-// const httpsServer = createServer(options, app);
-
-// const io = new Server(httpsServer, {
-//   cors: {
-//     origin: 'https://spotify-frontend-one.vercel.app',
-//   },
-// });
-
-// socketController(io);
-
-app.listen(port, () => {
-  //console.log(`Serveur en cours d'exécution sur : ${port}`);
+const io = new Server(app, {
+  cors: {
+    origin: 'https://spotify-frontend-one.vercel.app',
+  },
 });
 
-// app.listen(port, () => {
-//   // Envoie un message au client lorsque le serveur démarre
-//   //console.log(`Serveur en cours d'exécution sur le port ${port}`);
-// });
+socketController(io);
+
+app.listen(port, () => {
+  //console.log(`Serveur en cours d'exécution sur le port ${port}`);
+});

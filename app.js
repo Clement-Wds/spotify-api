@@ -55,23 +55,32 @@ db.connect(err => {
 
 app.use('/api', routes); // Toutes les routes seront préfixées par /api
 
+// Synchronisez les modèles avec la base de données
+// sequelize
+//   .sync({
+//     //alter: true,
+//   })
+//   .then(() => {
+//     console.log(`Serveur en cours d'exécution sur le port ${port}`);
+//   });
+
 //SOCKETS
-// const options = {
-//   key: fs.readFileSync('./key.pem'), // Modification du chemin du fichier de clé
-//   cert: fs.readFileSync('./cert.pem'), // Modification du chemin du fichier de certificat
-// };
+const options = {
+  key: fs.readFileSync('./key.pem'), // Modification du chemin du fichier de clé
+  cert: fs.readFileSync('./cert.pem'), // Modification du chemin du fichier de certificat
+};
 
-// const httpsServer = createServer(options, app);
+const httpsServer = createServer(options, app);
 
-// const io = new Server(httpsServer, {
-//   cors: {
-//     origin: 'https://spotify-frontend-one.vercel.app',
-//   },
-// });
+const io = new Server(httpsServer, {
+  cors: {
+    origin: 'https://spotify-frontend-one.vercel.app',
+  },
+});
 
-// socketController(io);
+socketController(io);
 
-app.listen(port, () => {
+httpsServer.listen(port, () => {
   //console.log(`Serveur en cours d'exécution sur : ${port}`);
 });
 
